@@ -4,7 +4,7 @@ Setting up a dev instance
 =========================
 
 Setting up an Open Library dev instance requires installing some third-party 
-software and python modules. This document will step you though the 
+software and Python modules. This document will step you though the 
 installation process.
 
 Supported Platforms
@@ -12,6 +12,7 @@ Supported Platforms
 
 The Open Library dev instance has been tested on the following platforms.
 
+* Ubuntu 12.04
 * Ubuntu 10.10
 * Ubuntu 10.04
 * Mac OS X Snow Leopard (with `XCode`_ and `homebrew`_ installed)
@@ -29,21 +30,21 @@ hosted on github.
 
 .. _code repository: https://github.com/internetarchive/openlibrary
 
-You can get the source code from there using::
-
-   $ git clone git://github.com/internetarchive/openlibrary.git
-   $ cd openlibrary
-
-This will create a directory called openlibrary with the entire
-codebase checked out.
-
-In case you don't have git installed already, you can install it on Ubuntu using::
+If you don't have git installed, you can install it on Ubuntu using::
 
     $ sudo apt-get install git-core
     
 and on Mac OS X using::
 
     $ brew install git
+
+You can get the Open Library source code from Github using::
+
+   $ git clone git://github.com/internetarchive/openlibrary.git
+   $ cd openlibrary
+
+This will create a directory called openlibrary with the entire
+codebase checked out.
 
 Installing dependencies
 -----------------------
@@ -61,16 +62,28 @@ See :doc:`appendices/dependencies` for the list of dependencies.
 Setting up the dev instance
 ---------------------------
 
-Once all the dependencies are installed the dev instance can be setup by running::
+Once all the dependencies are installed, you are ready to setup the dev instance.
+
+If you are running Python 2.6, the dev instance can be setup by running::
 
 	$ make bootstrap
 	
-This will do the following tasks, each of which can be invoked independenetly using make.
+This will do the following tasks, each of which can be invoked independently using make.  
 
 * create virtualenv (``make venv``)
 * install solr (``make install_solr``)
 * setup coverstore (``make setup_coverstore``)
 * setup openlibrary webapp (``make setup_ol``)
+
+If you are running Python 2.7, the first step above won't work. You should
+replace ``make venv`` with ::
+
+	$ virtualenv env
+	$ env/bin/pip install -r requirements.txt
+
+This is because Python bundle is from 2011 and one of the modules that it
+includes, importlib, fails to install on Python 2.7.
+http://www.archive.org/download/ol_vendor/openlibrary.pybundle
 
 Destroying the dev instance
 ---------------------------
@@ -129,3 +142,7 @@ It is known that the following issues exist:
 * /libraries/stats is failing
 * Lists are not working
 * subject search is not working
+
+Not an "issue" per se, but slightly confusing for first timers, is that some
+portions of production OpenLibrary web site, such as the help pages, wiki pages
+served from the database, so you won't see them in your dev instance.
