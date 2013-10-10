@@ -23,6 +23,10 @@
      the configuration.  See https://issues.apache.org/jira/browse/SOLR-1167
 -->
 <config>
+
+  <!-- required for 3.0 and later. valid values: LUCENE_CURRENT, LUCENE_31, LUCENE_32, LUCENE_40 -->
+  <luceneMatchVersion>LUCENE_32</luceneMatchVersion>
+
   <!-- Set this to 'false' if you want solr to continue working after it has 
        encountered an severe configuration error.  In a production environment, 
        you may want solr to keep working even if one handler is mis-configured.
@@ -1008,7 +1012,7 @@
        in Solr's conf/xslt directory.  Changes to xslt files are checked for
        every xsltCacheLifetimeSeconds.  
    -->
-  <queryResponseWriter name="xslt" class="org.apache.solr.request.XSLTResponseWriter">
+  <queryResponseWriter name="xslt" class="org.apache.solr.response.XSLTResponseWriter">
     <int name="xsltCacheLifetimeSeconds">5</int>
   </queryResponseWriter>
 
