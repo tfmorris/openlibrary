@@ -488,9 +488,6 @@
        <types> section
      indexed: true if this field should be indexed (searchable or sortable)
      stored: true if this field should be retrievable
-     compressed: [false] if this field should be stored using gzip compression
-       (this will only apply if the field type is compressable; among
-       the standard field types, only TextField and StrField are)
      multiValued: true if this field may contain multiple values per document
      omitNorms: (expert) set to true to omit the norms associated with
        this field (this disables length normalization and index-time
@@ -510,11 +507,11 @@
 
    <field name="ia" type="string" required="true" /> 
    <field name="collection" type="string" multiValued="true" /> 
-   <field name="body_eng" type="text_eng" termVectors="true" termPositions="true" termOffsets="true" compressed="true" />
-   <field name="body_fre" type="text_fre" termVectors="true" termPositions="true" termOffsets="true" compressed="true" />
-   <field name="body_deu" type="text_deu" termVectors="true" termPositions="true" termOffsets="true" compressed="true" />
-   <field name="body_spa" type="text_spa" termVectors="true" termPositions="true" termOffsets="true" compressed="true" />
-   <field name="body_other" type="textgen" termVectors="true" termPositions="true" termOffsets="true" compressed="true" />
+   <field name="body_eng" type="text_eng" termVectors="true" termPositions="true" termOffsets="true" />
+   <field name="body_fre" type="text_fre" termVectors="true" termPositions="true" termOffsets="true" />
+   <field name="body_deu" type="text_deu" termVectors="true" termPositions="true" termOffsets="true" />
+   <field name="body_spa" type="text_spa" termVectors="true" termPositions="true" termOffsets="true" />
+   <field name="body_other" type="textgen" termVectors="true" termPositions="true" termOffsets="true" />
    <field name="body_length" type="int" required="true" />
    <field name="page_count" type="int" indexed="true" required="true" />
    <field name="timestamp" type="date" indexed="true" stored="true" default="NOW" />
