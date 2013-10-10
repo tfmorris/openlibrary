@@ -426,7 +426,7 @@
        when adding a document.
    -->
 
-    <field name="key" type="string" required="true" omitnorms="true"/>
+    <field name="key" type="string" required="true" omitNorms="true"/>
     <field name="has_fulltext" type="boolean"/>
     <field name="title" type="text" />
     <field name="title_prefix" type="text" />

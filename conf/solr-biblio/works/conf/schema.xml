@@ -445,7 +445,7 @@
        when adding a document.
    -->
 
-    <field name="key" type="string" required="true" omitnorms="true"/>
+    <field name="key" type="string" required="true" omitNorms="true"/>
     <field name="redirects" type="string" multiValued="true"/>
     <field name="has_fulltext" type="boolean"/>
     <field name="title" type="text" required="true"/>
