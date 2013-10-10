@@ -819,6 +819,13 @@ def update_work(w, obj_cache=None, debug=False, resolve_redirects=False):
     # handle edition records as well
     # When an edition is not belonged to a work, create a fake work and index it.
     if w['type']['key'] == '/type/edition' and w.get('title'):
+        authors = []
+        for author in edition['authors']:
+            # reformat authors into format used for works
+            authors.append({
+                    'type': {'key': '/type/author_role'},
+                    'author': {'key': author['key']},
+                    })
         edition = w
         w = {
             # Use key as /works/OL1M. 
@@ -828,8 +835,10 @@ def update_work(w, obj_cache=None, debug=False, resolve_redirects=False):
             'key': edition['key'].replace("/books/", "/works/"),
             'type': {'key': '/type/work'},
             'title': edition['title'],
-            'editions': [edition]
+            'editions': [edition],
+            'authors': authors
         }
+
         # Hack to add subjects when indexing /books/ia:xxx
         if edition.get("subjects"):
             w['subjects'] = edition['subjects']
