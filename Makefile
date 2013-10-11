@@ -7,7 +7,11 @@ BUILD=static/build
 
 PYBUNDLE_URL=http://www.archive.org/download/ol_vendor/openlibrary.pybundle
 OL_VENDOR=http://www.archive.org/download/ol_vendor
-SOLR_VERSION=apache-solr-1.4.0
+#SOLR_VERSION=apache-solr-1.4.0
+#SOLR_KIT=$(OL_VENDOR)
+SOLR_KIT=http://archive.apache.org/dist/lucene/solr/3.6.2
+SOLR_VERSION=apache-solr-3.6.2
+
 ACCESS_LOG_FORMAT='%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s"'
 
 # Use python from local env if it exists or else default to python in the path.
@@ -53,7 +57,7 @@ venv:
 install_solr: 
 	@echo "** installing solr **"
 	mkdir -p var/lib/solr var/cache usr/local
-	wget -c $(OL_VENDOR)/$(SOLR_VERSION).tgz -O var/cache/$(SOLR_VERSION).tgz
+	wget -c $(SOLR_KIT)/$(SOLR_VERSION).tgz -O var/cache/$(SOLR_VERSION).tgz
 	cd usr/local && tar xzf ../../var/cache/$(SOLR_VERSION).tgz && ln -fs $(SOLR_VERSION) solr
 
 setup_coverstore:
