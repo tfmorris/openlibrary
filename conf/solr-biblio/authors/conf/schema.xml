@@ -396,6 +396,13 @@
          any data added to them will be ignored outright.  --> 
     <fieldtype name="ignored" stored="false" indexed="false" multiValued="true" class="solr.StrField" /> 
 
+    <fieldType name="folded" class="solr.TextField">
+      <analyzer>
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.ICUFoldingFilterFactory"/>
+      </analyzer>
+    </fieldType>
+
  </types>
 
 
@@ -406,9 +413,6 @@
        <types> section
      indexed: true if this field should be indexed (searchable or sortable)
      stored: true if this field should be retrievable
-     compressed: [false] if this field should be stored using gzip compression
-       (this will only apply if the field type is compressable; among
-       the standard field types, only TextField and StrField are)
      multiValued: true if this field may contain multiple values per document
      omitNorms: (expert) set to true to omit the norms associated with
        this field (this disables length normalization and index-time
@@ -427,9 +431,9 @@
    -->
 
    <field name="key" type="string" indexed="true" stored="true" required="true" /> 
-   <field name="name" type="textgen" indexed="true" stored="true"/>
+   <field name="name" type="folded" indexed="true" stored="true"/>
    <field name="name_str" type="string" indexed="true" stored="false"/>
-   <field name="alternate_names" type="textgen" indexed="true" stored="true" multiValued="true"/>
+   <field name="alternate_names" type="folded" indexed="true" stored="true" multiValued="true"/>
    <field name="birth_date" type="string" indexed="true" stored="true"/>
    <field name="death_date" type="string" indexed="true" stored="true"/>
    <field name="date" type="string" indexed="true" stored="true"/>

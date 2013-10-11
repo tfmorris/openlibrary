@@ -62,7 +62,12 @@
     -->
   <lib dir="../../contrib/clustering/lib/downloads/" />
   <lib dir="../../contrib/clustering/lib/" />
-  <lib dir="/total/crap/dir/ignored" /> 
+
+  <!-- JARs for ICU analysis plugin -->
+  <lib dir="${ol.solr.dist}/dist/" regex="apache-solr-analysis-extras-.*\.jar"/>
+  <lib dir="${ol.solr.dist}/contrib/analysis-extras/lib/" regex = "icu4j-.*\.jar"  />
+  <lib dir="${ol.solr.dist}/contrib/analysis-extras/lucene-libs/" />
+
   <!-- an exact path can be used to specify a specific file.  This will cause
        a serious error to be logged if it can't be loaded.
   <lib path="../a-jar-that-does-not-exist.jar" /> 

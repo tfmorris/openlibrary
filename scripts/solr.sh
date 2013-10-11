@@ -9,7 +9,12 @@ ROOT=$PWD
 LOG_FILE=var/log/solr.log
 PIDFILE=var/run/solr.pid
 SOLR_HOME=usr/local/solr/example
-START_COMMAND="java -Dsolr.solr.home=../../../../conf/solr-biblio -Dsolr.data.dir=../../../../var/lib/solr -jar start.jar"
+
+# Relative to *instance* dir e.g. works for works/conf/solrconfig.xml
+SOLR_DIST=../../../usr/local/solr
+
+START_COMMAND="java -Dsolr.solr.home=../../../../conf/solr-biblio -Dsolr.data.dir=../../../../var/lib/solr -Dol.solr.dist=$SOLR_DIST -jar start.jar"
+
 
 start() {
   echo "Starting $NAME"
