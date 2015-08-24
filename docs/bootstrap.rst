@@ -20,8 +20,8 @@ hosted on github.
 
 You can get the source code from there using::
 
-   $ git clone git://github.com/internetarchive/openlibrary.git
-   $ cd openlibrary
+    $ git clone git://github.com/internetarchive/openlibrary.git
+    $ cd openlibrary
 
 In case you don't have git installed already, you can install it on Ubuntu using::
 
@@ -36,7 +36,7 @@ Starting the dev-instance
 
 The Open Library dev-instance can be started using::
 
-	$ vagrant up
+    $ vagrant up
 
 This will setup a virtual machine with Ubuntu 14.04, installs all dependencies, setup database and loads sample data.
 
@@ -48,8 +48,9 @@ An admin user with the following credentials is created as part of the installat
 
 ::
 
-  username: openlibrary
-  password: openlibrary
+    username: openlibrary
+    password: openlibrary
+
 
 Known Issues
 ------------
