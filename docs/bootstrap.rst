@@ -26,10 +26,10 @@ You can get the source code from there using::
 In case you don't have git installed already, you can install it on Ubuntu using::
 
     $ sudo apt-get install git-core
-    
-and on Mac OS X using::
 
-    $ brew install git
+On Mac OS X 10.9 and above, typing the `git` command will prompt you to install
+it if it's not already installed.
+
 
 Starting the dev-instance
 -------------------------
