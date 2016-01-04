@@ -36,9 +36,8 @@ while date < END:
     url = (CHANGES % (date.year, date.month, date.day)) + kind + '.json' + FLAGS
     for offset in range(0, MAX-LIMIT, LIMIT):
         params = {'offset': offset, 'limit' : LIMIT}
-        # TODO: In production, don't use cache for recentchange list
         response = requests.get(url, params = params)
-        if not response.ok:
+        if not response.ok: # TODO: retry on 5xx?
             print('Failed to fetch url %d %s' % (response.status_code, url))
             break
         books = response.json()
