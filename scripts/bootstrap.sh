@@ -103,6 +103,7 @@ setup_nginx
 
 # change solr/tomcat port to 8983
 perl -i -pe 's/8080/8983/'  /etc/tomcat7/server.xml
+# ln  -sf $OL_ROOT/conf/solr/conf/schema.xml /etc/solr/conf/schema.xml
 cp $OL_ROOT/conf/solr/conf/schema.xml /etc/solr/conf/
 /etc/init.d/tomcat7 restart
 
