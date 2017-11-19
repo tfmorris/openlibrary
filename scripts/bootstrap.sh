@@ -98,14 +98,32 @@ function setup_nginx() {
     sudo /etc/init.d/nginx restart
 }
 
+function setup_solr() {
+    # Download a copy of solr so that we can use its plugins (not included in solr-tomcat)
+    wget http://archive.apache.org/dist/lucene/solr/3.6.2/apache-solr-3.6.2.tgz
+    tar -xzf apache-solr-3.6.2.tgz
+    # Move the contrib and dist folders over
+    sudo rm -r /usr/share/solr/{contrib,dist}
+    sudo mv apache-solr-3.6.2/contrib /usr/share/solr/contrib
+    sudo mv apache-solr-3.6.2/dist /usr/share/solr/dist
+    # cleanup
+    rm -r apache-solr-3.6.2{,.tgz}
+
+    # change solr/tomcat port to 8983
+    perl -i -pe 's/8080/8983/' /etc/tomcat6/server.xml
+
+    # Link the solr config
+    ln -sf $OL_ROOT/conf/solr/conf/schema.xml /etc/solr/conf/schema.xml
+    ln -sf $OL_ROOT/conf/solr/conf/solrconfig.xml /etc/solr/conf/solrconfig.xml
+
+    # Restart solr
+    /etc/init.d/tomcat6 restart
+}
+
 setup_database
 setup_nginx
 
-# change solr/tomcat port to 8983
-perl -i -pe 's/8080/8983/'  /etc/tomcat7/server.xml
-# ln  -sf $OL_ROOT/conf/solr/conf/schema.xml /etc/solr/conf/schema.xml
-cp $OL_ROOT/conf/solr/conf/schema.xml /etc/solr/conf/
-/etc/init.d/tomcat7 restart
+setup_solr
 
 mkdir -p /var/log/openlibrary /var/lib/openlibrary
 chown $OL_USER:$OL_USER /var/log/openlibrary /var/lib/openlibrary
