@@ -117,7 +117,7 @@ function setup_solr() {
     ln -sf $OL_ROOT/conf/solr/conf/solrconfig.xml /etc/solr/conf/solrconfig.xml
 
     # Restart solr
-    /etc/init.d/tomcat6 restart
+    /etc/init.d/tomcat7 restart
 }
 
 setup_database

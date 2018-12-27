@@ -5,7 +5,19 @@ RUN apt-get -qq update && \
     ln -s /var/log/tomcat7/ /usr/share/tomcat7/logs && \
     ln -s /etc/tomcat7/ /usr/share/tomcat7/conf
 
+# We need solr plugs which aren't in the solr-tomcat package
+RUN curl http://archive.apache.org/dist/lucene/solr/3.6.2/apache-solr-3.6.2.tgz |  tar xz && \
+    rm -rf /usr/share/solr/{contrib,dist} && \
+    mv apache-solr-3.6.2/contrib /usr/share/solr/contrib && \
+    mv apache-solr-3.6.2/dist /usr/share/solr/dist && \
+    rm -rf apache-solr-3.6.2{,.tgz}
+
+# TODO: Softlink instead of copy?
+#    ln -sf $OL_ROOT/conf/solr/conf/schema.xml /etc/solr/conf/schema.xml
+#    ln -sf $OL_ROOT/conf/solr/conf/solrconfig.xml /etc/solr/conf/solrconfig.xml
+
 COPY conf/solr/conf/schema.xml /etc/solr/conf/
+COPY conf/solr/conf/solrconfig.xml /etc/solr/conf/
 
 EXPOSE 8080
 
