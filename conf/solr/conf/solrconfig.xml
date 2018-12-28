@@ -64,11 +64,6 @@
               <lib dir="./lib" />
     -->
 
-  <!-- Libs for ICUFoldingFilter -->
-  <lib path="dist/apache-solr-analysis-extras-3.6.2.jar" />
-  <lib dir="contrib/analysis-extras/lucene-libs" regex=".*\.jar" />
-  <lib dir="contrib/analysis-extras/lib" regex=".*\.jar" />
-
   <!-- A 'dir' option by itself adds any files found in the directory
        to the classpath, this is useful for including all jars in a
        directory.
@@ -118,8 +113,13 @@
        other than the default ./data under the Solr home.  If
        replication is in use, this should match the replication
        configuration.
-    -->
+
+       We specify this as part of the core definition in solr.xml
+       so that we can share the rest of this file.
+
   <dataDir>/var/lib/solr/data</dataDir>
+    -->
+
 
 
   <!-- The DirectoryFactory to use for indexes.

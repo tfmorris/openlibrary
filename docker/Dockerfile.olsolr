@@ -5,19 +5,23 @@ RUN apt-get -qq update && \
     ln -s /var/log/tomcat7/ /usr/share/tomcat7/logs && \
     ln -s /etc/tomcat7/ /usr/share/tomcat7/conf
 
-# We need solr plugs which aren't in the solr-tomcat package
-RUN curl http://archive.apache.org/dist/lucene/solr/3.6.2/apache-solr-3.6.2.tgz |  tar xz && \
-    rm -rf /usr/share/solr/{contrib,dist} && \
-    mv apache-solr-3.6.2/contrib /usr/share/solr/contrib && \
-    mv apache-solr-3.6.2/dist /usr/share/solr/dist && \
-    rm -rf apache-solr-3.6.2{,.tgz}
+# We need solr JARs which aren't in the Ubuntu solr-tomcat package
+RUN curl http://archive.apache.org/dist/lucene/solr/3.6.2/apache-solr-3.6.2.tgz | tar xz && \
+    rm -rf /usr/share/solr/lib && \
+    mkdir /usr/share/solr/lib && \
+    mkdir /usr/share/solr/core2 && \
+    cp -r /usr/share/solr/conf /usr/share/solr/core2/ && \
+    mv apache-solr-3.6.2/contrib/analysis-extras/lib/*.jar /usr/share/solr/lib/ && \
+    mv apache-solr-3.6.2/contrib/analysis-extras/lucene-libs/*.jar /usr/share/solr/lib/ && \
+    mv apache-solr-3.6.2/dist/apache-solr-analysis-extras-3.6.2.jar  /usr/share/solr/lib/ && \
+    rm -rf apache-solr-3.6.2
 
-# TODO: Softlink instead of copy?
-#    ln -sf $OL_ROOT/conf/solr/conf/schema.xml /etc/solr/conf/schema.xml
-#    ln -sf $OL_ROOT/conf/solr/conf/solrconfig.xml /etc/solr/conf/solrconfig.xml
+# TODO: Link/mount instead of copy?
 
-COPY conf/solr/conf/schema.xml /etc/solr/conf/
-COPY conf/solr/conf/solrconfig.xml /etc/solr/conf/
+COPY conf/solr/solr.xml /usr/share/solr/
+COPY conf/solr/conf/* /usr/share/solr/conf/
+# Our two cores have the same config to start, except for data diretories (to allow separate indexing)
+COPY conf/solr/conf/* /usr/share/solr/core2/conf/
 
 EXPOSE 8080
 
