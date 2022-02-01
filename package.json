@@ -41,7 +41,7 @@
     "@babel/register": "7.15.3",
     "@storybook/addon-actions": "6.3.8",
     "@storybook/addon-essentials": "6.3.8",
-    "@storybook/addon-links": "6.3.8",
+    "@storybook/addon-links": "6.4.17",
     "@storybook/storybook-deployer": "2.8.10",
     "@storybook/vue": "6.3.8",
     "@vue/cli": "4.5.13",
